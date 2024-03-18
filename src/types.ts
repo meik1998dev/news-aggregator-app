@@ -5,6 +5,8 @@ export interface NewsItem {
   url: string;
   imageUrl: string | null;
   publishedAt: string;
+  category ?: string;
+
 }
 
 export interface NewsApiArticle {
@@ -16,22 +18,41 @@ export interface NewsApiArticle {
   publishedAt: string;
 }
 
-export interface NYTApiArticle {
-  title: string;
-  abstract: string;
-  url: string;
-  multimedia: Array<{ url: string }> | null;
-  published_date: string;
+export interface GuardiansApiArticle {
+  id: string;
+  type: string;
+  sectionId: string;
+  sectionName: string;
+  webPublicationDate: string;
+  webTitle: string;
+  webUrl: string;
+  apiUrl: string;
+  fields: {
+    thumbnail: string;
+    trailText ?: string;
+  };
+  isHosted: boolean;
+  pillarId: string;
+  pillarName: string;
 }
 
 export interface NYTApiArticle {
-  webTitle: string;
-  webUrl: string;
+  abstract: string;
+  web_url: string;
+  snippet: string;
+  lead_paragraph: string;
+  print_section: string;
+  print_page: string;
+  source: string;
   multimedia: Array<{ url: string }> | null;
-  webPublicationDate: string;
-  sectionId: string;
-  sectionName: string;
-  fields: {
-    thumbnail: string;
-  };
+  headline: { main: string };
+  pub_date: string;
+  document_type: string;
+  news_desk: string;
+  section_name: string;
+  subsection_name: string;
+  type_of_material: string;
+  _id: string;
+  word_count: number;
+  uri: string;
 }

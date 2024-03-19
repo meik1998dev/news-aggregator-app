@@ -4,6 +4,7 @@ import { useFilters } from "@/contexts/filterContext";
 import { useNewsItems } from "@/contexts/newsListContext";
 import { useSourcesItems } from "@/contexts/sourcesContext";
 import { NewsItem } from "@/types";
+import { useCategoriesItems } from "@/contexts/categoriesContext";
 
 const useFetchAllNews = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -14,6 +15,7 @@ const useFetchAllNews = () => {
   const { keyword, page } = filters;
 
   const { sourcesItems, setSourcesItems } = useSourcesItems();
+  const { categoriesItems, setCategoriesItems } = useCategoriesItems();
   const { newsItems, setNewsItems } = useNewsItems();
 
   useEffect(() => {
@@ -28,14 +30,17 @@ const useFetchAllNews = () => {
 
         const result: NewsItem[] = [];
         const sourcesSet = sourcesItems;
+        const categoriesSet = categoriesItems;
 
         responses.flat().forEach((item: NewsItem) => {
           sourcesSet.add(item.source.toLowerCase());
+          item.category && categoriesSet.add(item.category.toLowerCase());
           result.push(item);
         });
 
         setIsLastPage(result.length < 20);
         setNewsItems([...newsItems, ...result]);
+        setCategoriesItems(categoriesSet);
         setSourcesItems(sourcesSet);
       } catch (err) {
         setError(err instanceof Error ? err : new Error("An error occurred"));

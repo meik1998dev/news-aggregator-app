@@ -18,8 +18,12 @@ export const NewsList = () => {
       arr = arr.filter((item) => item.publishedAt.split("T")[0] === filters.startDate);
     }
 
+    if (filters.category) {
+      arr = arr.filter((item) => item.category?.toLowerCase() === filters.category.toLowerCase());
+    }
+
     return arr;
-  }, [newsItems, filters.source, filters.startDate]);
+  }, [newsItems, filters.source, filters.startDate, filters.category]);
 
   return (
     <>

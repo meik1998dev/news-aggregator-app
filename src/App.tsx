@@ -1,3 +1,4 @@
+import { CategoriesCombobox } from "./components/CategoriesCombobox";
 import { NewsListWrapper } from "./components/NewsListWrapper";
 import { SearchInput } from "./components/SearchInput";
 import { SorucesCombobox } from "./components/SorucesCombobox";
@@ -12,7 +13,7 @@ function App() {
         <div className="container mx-auto flex w-full items-center gap-4 ">
           <SearchInput />
           <SorucesCombobox />
-          {/* <Combobox type={"category"} options={[]} /> */}
+          <CategoriesCombobox />
           <DatePicker />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { NewsList } from "./components/NewsList";
+import { NewsListWrapper } from "./components/NewsListWrapper";
 import { SearchInput } from "./components/SearchInput";
 import { SorucesCombobox } from "./components/SorucesCombobox";
 // import { Combobox } from "./components/common/combobox";
@@ -17,7 +17,7 @@ function App() {
         </div>
       </div>
       <div className="container mx-auto">
-        <NewsList />
+        <NewsListWrapper />
       </div>
     </div>
   );

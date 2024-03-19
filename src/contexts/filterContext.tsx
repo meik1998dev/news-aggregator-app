@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState } from "react";
 
-interface Filters {
+export interface Filters {
   keyword: string;
   category: string;
   startDate: string;
-  page : number;
+  page: number;
   source: string;
 }
 
@@ -17,7 +17,7 @@ const FilterContext = createContext<FilterContextValue>({
   filters: {
     keyword: "",
     category: "",
-    source : "",
+    source: "",
     startDate: "",
     page: 1,
   },

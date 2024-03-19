@@ -1,9 +1,8 @@
-import { CategoriesCombobox } from "./components/CategoriesCombobox";
-import { NewsListWrapper } from "./components/NewsListWrapper";
-import { SearchInput } from "./components/SearchInput";
-import { SorucesCombobox } from "./components/SorucesCombobox";
-// import { Combobox } from "./components/common/combobox";
-import { DatePicker } from "./components/common/datePicker";
+import { CategoriesCombobox } from "./components/features/filters/comboboxs/CategoriesCombobox";
+import { NewsListWrapper } from "./components/features/news/NewsListWrapper";
+import { SearchInput } from "./components/features/filters/SearchInput/SearchInput";
+import { SorucesCombobox } from "./components/features/filters/comboboxs/SorucesCombobox";
+import { DatePicker } from "./components/features/filters/datePicker/datePicker";
 
 function App() {
   return (

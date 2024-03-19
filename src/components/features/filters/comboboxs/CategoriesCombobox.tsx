@@ -1,4 +1,4 @@
-import { Combobox } from "./common/combobox";
+import { Combobox } from "../../../ui/combobox";
 import { useFilters } from "@/contexts/filterContext";
 import { useCategoriesItems } from "@/contexts/categoriesContext";
 import { useState } from "react";

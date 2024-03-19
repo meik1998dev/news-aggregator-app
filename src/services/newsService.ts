@@ -1,4 +1,4 @@
-import { NewsItem, NewsApiArticle, NYTApiArticle } from "@/types";
+import { NewsApiArticle, NYTApiArticle, GuardiansApiArticle } from "@/types";
 import axios from "axios";
 
 const API_KEYS = {
@@ -7,14 +7,19 @@ const API_KEYS = {
   GUARD_KEY: import.meta.env.VITE_GUARD_KEY,
 };
 
-const fetchNewsAPI = async (): Promise<NewsItem[]> => {
+const fetchNewsAPI = async ({ keyword = "", category = "", page = 1 }) => {
+  const url = new URL("https://newsapi.org/v2/top-headlines");
+  url.searchParams.set("country", "us");
+  url.searchParams.set("q", keyword);
+  url.searchParams.set("apiKey", API_KEYS.NEWS_API);
+  url.searchParams.set("page", page.toString());
+
   try {
-    const response = await axios.get(
-      `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEYS.NEWS_API}`
-    );
+    const response = await axios.get(url.toString());
 
     return response.data.articles.map((article: NewsApiArticle) => ({
       source: article.source.name,
+      category,
       title: article.title,
       description: article.description,
       url: article.url,
@@ -27,18 +32,24 @@ const fetchNewsAPI = async (): Promise<NewsItem[]> => {
   }
 };
 
-const fetchGuardiansNews = async (): Promise<NewsItem[]> => {
-  try {
-    const response = await axios.get(
-      `https://content.guardianapis.com/search?show-fields=thumbnail&api-key=${API_KEYS.GUARD_KEY}`
-    );
+const fetchGuardiansNews = async ({ keyword = "", page = 1 }) => {
+  const url = new URL("https://content.guardianapis.com/search");
+  url.searchParams.set("show-fields", "thumbnail,trailText");
+  keyword && url.searchParams.set("q", keyword);
+  url.searchParams.set("api-key", API_KEYS.GUARD_KEY);
+  url.searchParams.set("page", page.toString());
 
-    return response.data.response.results.map((article: NYTApiArticle) => ({
-      source: article.sectionName,
-      title: article.title,
-      url: article.url,
+  try {
+    const response = await axios.get(url.toString());
+
+    return response.data.response.results.map((article: GuardiansApiArticle) => ({
+      source: "Guardian",
+      category: article.sectionName,
+      title: article.webTitle,
+      url: article.webUrl,
       imageUrl: article.fields?.thumbnail || null,
       publishedAt: article.webPublicationDate,
+      description: article.fields?.trailText,
     }));
   } catch (error) {
     console.log(error);
@@ -46,19 +57,23 @@ const fetchGuardiansNews = async (): Promise<NewsItem[]> => {
   }
 };
 
-const fetchNYT = async (): Promise<NewsItem[]> => {
+const fetchNYT = async ({ keyword = "", page = 1 }) => {
+  const url = new URL("https://api.nytimes.com/svc/search/v2/articlesearch.json");
+  keyword && url.searchParams.set("q", keyword);
+  url.searchParams.set("api-key", API_KEYS.NYT_API);
+  url.searchParams.set("page", page.toString());
+
   try {
-    const response = await axios.get(
-      `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=${API_KEYS.NYT_API}`
-    );
+    const response = await axios.get(url.toString());
 
     return response.data.response.docs.map((article: NYTApiArticle) => ({
-      source: "The New York Times",
-      title: article.title,
+      source: "the new york times",
+      category: article.news_desk,
+      title: article.headline.main,
       description: article.abstract,
-      url: article.url,
-      imageUrl: article.multimedia?.[0]?.url || null,
-      publishedAt: article.published_date,
+      url: article.web_url,
+      imageUrl: `https://www.nytimes.com/${article.multimedia?.[0]?.url}`,
+      publishedAt: article.pub_date,
     }));
   } catch (error) {
     console.log(error);

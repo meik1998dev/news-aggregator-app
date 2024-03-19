@@ -9,9 +9,16 @@ import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon } from "@radix-ui/react-icons";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useFilters } from "@/contexts/filterContext";
 
 export function DatePicker() {
   const [date, setDate] = React.useState<Date>();
+  const { filters, setFilters } = useFilters();
+
+  const handleSelect = (value: Date | undefined) => {
+    setFilters({ ...filters, startDate: value ? format(value, "yyyy-MM-dd") : "" });
+    setDate(value);
+  };
 
   return (
     <Popover>
@@ -28,7 +35,7 @@ export function DatePicker() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+        <Calendar mode="single" selected={date} onSelect={(s) => handleSelect(s)} initialFocus />
       </PopoverContent>
     </Popover>
   );

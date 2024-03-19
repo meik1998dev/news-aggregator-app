@@ -7,7 +7,7 @@ export const useObserver = (
   isLoading: boolean
 ) => {
   const { filters, setFilters } = useFilters();
-  const shouldLoadMore = !isLastPage && !isLoading && !filters.source;
+  const shouldLoadMore = !isLastPage && !isLoading && !filters.source && !filters.startDate;
 
   useEffect(() => {
     const handleObserver = (entities: IntersectionObserverEntry[]): void => {

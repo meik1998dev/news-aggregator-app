@@ -14,19 +14,21 @@ import { useFilters } from "@/contexts/filterContext";
 export function DatePicker() {
   const [date, setDate] = React.useState<Date>();
   const { filters, setFilters } = useFilters();
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const handleSelect = (value: Date | undefined) => {
     setFilters({ ...filters, startDate: value ? format(value, "yyyy-MM-dd") : "" });
     setDate(value);
+    setIsOpen(false);
   };
 
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start text-left font-normal",
+            "lg:w-[170px] w-full justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
         >

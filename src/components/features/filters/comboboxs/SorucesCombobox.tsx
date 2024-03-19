@@ -18,6 +18,7 @@ export const SorucesCombobox = () => {
 
   return (
     <Combobox
+      defaultValue={filters.source}
       handleSelect={handleSelect}
       type={"source"}
       options={sourcesArr}

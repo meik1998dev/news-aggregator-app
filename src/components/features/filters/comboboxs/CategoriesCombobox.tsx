@@ -18,6 +18,7 @@ export const CategoriesCombobox = () => {
 
   return (
     <Combobox
+      defaultValue={filters.category}
       handleSelect={handleSelect}
       type={"category"}
       options={categoriesArr}

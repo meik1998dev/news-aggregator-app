@@ -8,14 +8,14 @@ export const NewsItem = ({ data }: { data: TNewsItem }) => {
     >
       <div className="w-full relative aspect-[16/10] rounded-t">
         <img src={data.imageUrl!} className="w-full aspect-[16/10] object-cover rounded-t" alt="" />
-        <div className="bg-blue-950 text-white absolute top-2 right-2 font-semibold px-2 text-sm py-0.5 rounded w-fit">
+        <div className="bg-blue-950 text-white absolute capitalize top-2 right-2 font-semibold px-2 text-sm py-0.5 rounded w-fit">
           {data.source}
         </div>
       </div>
       <div className="flex flex-col p-4 gap-2">
         <div className="flex justify-between items-center">
           {data.category ? (
-            <div className="bg-teal-800 text-white font-semibold px-2 text-sm py-0.5 rounded w-fit">
+            <div className="bg-teal-800 capitalize text-white font-semibold px-2 text-sm py-0.5 rounded w-fit">
               {data.category}
             </div>
           ) : (

@@ -5,6 +5,7 @@ interface Filters {
   category: string;
   startDate: string;
   page : number;
+  source: string;
 }
 
 interface FilterContextValue {
@@ -16,6 +17,7 @@ const FilterContext = createContext<FilterContextValue>({
   filters: {
     keyword: "",
     category: "",
+    source : "",
     startDate: "",
     page: 1,
   },
@@ -28,6 +30,7 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     category: "",
     startDate: "",
     page: 1,
+    source: "",
   });
 
   return (

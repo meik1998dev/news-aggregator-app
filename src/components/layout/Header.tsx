@@ -9,8 +9,8 @@ export const Header = () => {
     <>
       <div className="lg:py-10 py-16" />
 
-      <div className="py-5 w-full border-b border-gray-200 shadow-sm fixed top-0 z-50 bg-white/85 backdrop-blur-2xl">
-        <div className="container mx-auto flex lg:flex-row flex-col w-full lg:items-center items-start gap-4  ">
+      <div className="md:py-5 py-2 w-full border-b border-gray-200 shadow-sm fixed top-0 z-50 bg-white/85 backdrop-blur-2xl">
+        <div className="container mx-auto flex lg:flex-row flex-col w-full max-md:px-4 lg:items-center items-start md:gap-4 gap-2 ">
           <SearchInput />
 
           <MobileFilter />

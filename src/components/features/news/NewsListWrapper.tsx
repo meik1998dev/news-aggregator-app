@@ -12,9 +12,9 @@ export const NewsListWrapper = () => {
 
   return (
     <>
-      <div className="grid py-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3">
-        <NewsList />
+      <NewsList isLoading={isLoading} />
 
+      <div className="grid py-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3">
         {isLoading && [...Array(12)].map((_, index) => <NewsItemSkeleton key={index} />)}
       </div>
 

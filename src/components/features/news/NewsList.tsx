@@ -1,35 +1,19 @@
-import { useFilters } from "@/contexts/filterContext";
-import { useNewsItems } from "@/contexts/newsListContext";
-import { useMemo } from "react";
 import { NewsItem } from "./NewsItem";
+import { useFilteredItems } from "@/hooks/useFilteredItems";
+import { NoResults } from "./NoResults";
 
-export const NewsList = () => {
-  const { filters } = useFilters();
-  const { newsItems } = useNewsItems();
+export const NewsList = ({ isLoading }: { isLoading: boolean }) => {
+  const { filteredNews } = useFilteredItems();
 
-  const filteredNews = useMemo(() => {
-    let arr = [...newsItems];
-
-    if (filters.source) {
-      arr = arr.filter((item) => item.source.toLowerCase() === filters.source);
-    }
-
-    if (filters.startDate) {
-      arr = arr.filter((item) => item.publishedAt.split("T")[0] === filters.startDate);
-    }
-
-    if (filters.category) {
-      arr = arr.filter((item) => item.category?.toLowerCase() === filters.category.toLowerCase());
-    }
-
-    return arr;
-  }, [newsItems, filters.source, filters.startDate, filters.category]);
+  if (filteredNews.length === 0 && !isLoading) {
+    return <NoResults />;
+  }
 
   return (
-    <>
+    <div className="grid py-5 lg:grid-cols-3 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3">
       {filteredNews.map((news, index) => (
         <NewsItem key={index} data={news} />
       ))}
-    </>
+    </div>
   );
 };

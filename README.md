@@ -98,5 +98,7 @@ docker ps
 ```bash
 docker stop <container-id>
 ```
+
+## Docker hub image repository for this project is located at https://hub.docker.com/r/meik1998/news-aggregator-app
 --------------------------------
 
